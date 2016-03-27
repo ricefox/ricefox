@@ -1,1 +1,0 @@
-{"template":"m1","enableI18N":"1","messageCategory":"rf_user","ns":"ricefox\\user\\models","db":"db","baseClass":"ricefox\\base\\ActiveRecord","generateRelations":"all","generateLabelsFromComments":"0","queryNs":"ricefox\\user\\models","queryBaseClass":"yii\\db\\ActiveQuery"}
