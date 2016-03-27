@@ -1,0 +1,41 @@
+.container960{
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.col{
+    display: inline-block !important;
+    *display:inline;
+    *zoom:1;
+    vertical-align: middle;
+}
+.col-block{
+    display: inline-block !important;
+    *display:inline;
+    *zoom:1;
+    vertical-align: top;
+}
+.clear{
+    clear: both;
+}
+.clearfix:after,.clearfix:before{
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+    width: 0;
+}
+.col-main{
+    float: left;
+    margin-right: 10px;
+}
+.col-auto{
+    overflow: hidden;
+    _float:left;
+    _zoom:1;
+}
+.ricefox-breadcrumb > li + li:before{
+    padding: 0 5px;
+    color: #d4d4d4;
+    content: ">";
+}

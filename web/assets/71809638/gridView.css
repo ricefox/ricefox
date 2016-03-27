@@ -1,0 +1,15 @@
+.grid-view{
+    margin-bottom: 10px;
+}
+.grid-summary{
+    margin-bottom: 10px;
+}
+.grid-summary-item{
+    margin-right: 15px;
+}
+.grid-footer-item{
+    margin-left:20px ;
+}
+.grid-footer-first{
+    margin-left: 0;
+}
