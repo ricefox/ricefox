@@ -8,6 +8,7 @@
 
 namespace ricefox\user\controllers;
 
+use ricefox\user\models\User;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\base\InvalidParamException;
@@ -51,6 +52,14 @@ class PassportController extends \yii\web\Controller
                 ],
             ],
         ];
+    }
+
+    public function actionSendEmail()
+    {
+        $user=User::findOne(1);
+        $user->generatePasswordResetToken();
+        $mail=new \ricefox\mail\Mail();
+        $mail->sendPasswordReset($user);
     }
 
     /**

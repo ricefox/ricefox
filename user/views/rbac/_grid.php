@@ -39,10 +39,8 @@ echo GridView::widget([
         [
             'class' => 'ricefox\widgets\ActionColumn',
             'urlCreator'=>function($action,$model,$key,$index){
-                //print_r($key);
                 return Url::toRoute([$action,'id'=>$key,'type'=>$model->type]);
-            },
-            'template'=>'{update} {delete}'
+            }
         ],
     ],
     'footers'=>[

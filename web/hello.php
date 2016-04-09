@@ -2,9 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: wen
- * Date: 2016/3/26
- * Time: 11:11
+ * Date: 2016/4/1
+ * Time: 13:04
  */
 
-
-var_dump( json_decode('5',true));
+error_reporting(E_ALL);
+$cat=[];
+print_r($_SERVER);

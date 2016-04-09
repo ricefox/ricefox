@@ -14,8 +14,9 @@ echo "<?php\n";
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
-/* @var $this yii\web\View */
-/* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
+
+/** @var $this yii\web\View */
+/** @var $model <?= ltrim($generator->modelClass, '\\') ?> */
 
 // 标签
 $this->params['tabs']=[

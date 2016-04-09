@@ -10,3 +10,10 @@ input[type="checkbox"].col{
 .col.form-control-static{
     margin-bottom: 5px;
 }
+/* radioList() */
+.radio-list-group{
+    margin-top: 5px;
+}
+.radio-list label{
+    margin-bottom: 0;
+}

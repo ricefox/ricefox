@@ -8,9 +8,10 @@
 
 namespace ricefox\base;
 use yii\helpers\ArrayHelper;
-
+use Yii;
 class ActiveRecord extends \yii\db\ActiveRecord
 {
+    public $cache='cache';
     /**
      * 通过主键更新单表中的多行数据
      * @param array $rows 待更新的多行数据，
@@ -162,6 +163,13 @@ class ActiveRecord extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * @return \yii\caching\Cache
+     */
+    public function getCacheComponent()
+    {
+        return Yii::$app->{$this->cache};
+    }
     public function formats()
     {
         return [];

@@ -9,13 +9,19 @@
     *zoom:1;
     vertical-align: middle;
 }
+.col2{
+    display: inline-block;
+    *display:inline;
+    *zoom:1;
+    vertical-align: middle;
+}
 .col-block,.colblock{
     display: inline-block !important;
     *display:inline;
     *zoom:1;
     vertical-align: top;
 }
-.col-main{
+.col-main,.col-fixed{
     float: left;
     margin-right: 10px;
 }
@@ -44,4 +50,10 @@
 }
 .tabs-container{
     margin-bottom: 10px;
+}
+.ricefox-navbar{
+    margin-bottom: 5px;
+}
+.hidden{
+    display: none !important;
 }

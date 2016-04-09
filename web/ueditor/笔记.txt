@@ -1,0 +1,57 @@
+为上传、远程抓取的图片添加额外的属性。
+
+1.简单上传图片（一次只能上传一张）。
+查找simpleupload插件
+使用loader.setAttribute()函数设置属性。
+loader.setAttribute('title', json.title || '');
+loader.setAttribute('alt', json.original || '');
+loader.setAttribute('data-width', json.imageWidth || '');
+loader.setAttribute('data-height', json.imageHeight || '');
+其中json是上传图片后返回的json对象。
+2.远程抓取图片(复制图片地址到编辑器的自动抓取)
+查找插件：catchremoteimage
+在success回调函数中，
+domUtils.setAttributes(ci, {
+                        "src": newSrc,
+                        "_src": newSrc,
+                        'data-width':dataWidth,
+                        'data-height':dataHeight
+                    });
+添加属性。list是返回的图片信息的数组，一个图片为数组的一项。
+3.使用webuploader进行的上传图片、远程抓取的修改(多图上传)。
+在文件dialogs/image/image.js中查找getInsertList()方法，并添加选项。
+getInsertList: function () {
+    var data = this.getData();
+    console.log(data);
+    if(data['url']) {
+        return [{
+            src: data['url'],
+            _src: data['url'],
+            width: data['width'] || '',
+            height: data['height'] || '',
+            border: data['border'] || '',
+            floatStyle: data['align'] || '',
+            vspace: data['vhSpace'] || '',
+            title: data['title'] || '',
+            'data-width': data['imageWidth'] || '',
+            'data-height': data['imageHeight'] || '',
+            alt: data['title'] || '',
+            style: "width:" + data['width'] + "px;height:" + data['height'] + "px;"
+        }];
+    } else {
+        return [];
+    }
+}
+data对象为返回的一个图片信息的json对象。
+4.剪贴板中粘帖自动上传图片。
+查找插件autoupload，
+使用loader.setAttribute()添加属性（同1）
+
+其中2、3、4需要在insertimage命令中添加相关的图片属性。
+查找insertimage,找到插入图片的命令UE.commands['insertimage']
+在构建img标签的str字符串中添加相关的属性。（属性中为数字的需要使用String函数转换，否则可能出错）。
+
+
+
+
+

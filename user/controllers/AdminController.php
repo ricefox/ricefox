@@ -25,9 +25,7 @@ class AdminController extends BackendController
                     'multi-delete'=>['post']
                 ],
             ],
-            [
-                'class'=>\ricefox\behaviors\DataFetch::className()
-            ]
+
         ];
     }
 

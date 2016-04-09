@@ -6,10 +6,24 @@
  * Time: 16:13
  */
 
+/** @property $module \ricefox\base\Module */
+
 namespace ricefox\base;
 use Yii;
+use yii\base\Exception;
+
 class BackendController extends \yii\web\Controller
 {
+    public $layout='@ricefox/views/backend';
+
+    public function init()
+    {
+        parent::init();
+        if($this->module->hasSetting){
+            $this->module->loadModuleSetting();
+        }
+    }
+
     /**
      * 添加删除失败的提示
      * @param string $message
@@ -26,6 +40,69 @@ class BackendController extends \yii\web\Controller
     public function deleteSuccess($message='删除成功')
     {
         \Yii::$app->session->setFlash('success',$message);
+    }
+    public function failed($action,$message='')
+    {
+        if(!$message){
+            switch($action)
+            {
+                case 'add':
+                    $message='添加失败';
+                    break;
+                case 'update':
+                    $message='更新失败';
+                    break;
+                case 'delete':
+                    $message='删除失败';
+                    break;
+                default:
+                    $message='操作失败';
+            }
+        }
+        \Yii::$app->session->setFlash('error',$message);
+    }
+    public function success($action,$message='')
+    {
+        if(!$message){
+            switch($action)
+            {
+                case 'add':
+                    $message='添加成功';
+                    break;
+                case 'update':
+                    $message='更新成功';
+                    break;
+                case 'delete':
+                    $message='删除成功';
+                    break;
+                default:
+                    $message='操作成功';
+            }
+        }
+        \Yii::$app->session->setFlash('success',$message);
+    }
+
+    /**
+     * 在transaction状态下调用$model的save方法
+     * @param ActiveRecord $model
+     * @return bool|string
+     * @throws \yii\db\Exception
+     */
+    public function save(ActiveRecord &$model)
+    {
+        $transaction=$model->getDb()->beginTransaction();
+        try{
+            if($model->save()===true){
+                $transaction->commit();
+                return true;
+            }else{
+                $transaction->rollBack();
+                return false;
+            }
+        }catch (Exception $e){
+            $transaction->rollBack();
+            return $e->getMessage();
+        }
     }
 
     /**

@@ -17,6 +17,16 @@ class DataColumn extends \yii\grid\DataColumn
     public $width;
     public $options=[];
     public $inputType='text';
+    public $hidden=false;
+    public $rows;
+    public function init()
+    {
+        parent::init();
+        if($this->hidden===true){
+            Html::addCssClass($this->headerOptions,'hidden');
+            Html::addCssClass($this->contentOptions,'hidden');
+        }
+    }
     /**
      * @var Array dropDownList的items
      */
@@ -44,6 +54,19 @@ class DataColumn extends \yii\grid\DataColumn
             $input.=' '.$key.'="'.$value.'" ';
         }
         $input.='/>';
+        return $input;
+    }
+    // 使用input
+    function textarea($model,$key,$index)
+    {
+        $text=parent::getDataCellValue($model,$key,$index);
+        $options=$this->getOptions($model,$key,$index);
+        $input='<textarea class="form-control" ';
+        if($this->rows)$input.=' rows="'.$this->rows.'" ';
+        foreach($options as $key=>$value){
+            $input.=' '.$key.'="'.$value.'" ';
+        }
+        $input.='>'.$text.'</textarea>';
         return $input;
     }
     function dropDownList($model,$key,$index)

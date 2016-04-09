@@ -2,10 +2,12 @@
 
 namespace ricefox\article\controllers;
 
+use ricefox\article\models\ArticleData;
 use Yii;
 use ricefox\article\models\Article;
 use ricefox\article\models\ArticleSearch;
-use yii\web\Controller;
+use ricefox\base\BackendController;
+use ricefox\block\models\Category;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -13,7 +15,7 @@ use yii\helpers\Url;
 /**
  * AdminController implements the CRUD actions for Article model.
  */
-class AdminController extends Controller
+class AdminController extends BackendController
 {
     public function behaviors()
     {
@@ -26,9 +28,6 @@ class AdminController extends Controller
                     'multi-delete'=>['post']
                 ],
             ],
-            [
-                'class'=>\ricefox\behaviors\DataFetch::className()
-            ]
         ];
     }
 
@@ -40,11 +39,26 @@ class AdminController extends Controller
     {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $categories=Category::getItems();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'categories'=>$categories
         ]);
+    }
+
+    /**
+     * 返回文章的搜索数据。通过view参数使用不同的显示模版。
+     *
+     * @return string
+     */
+    function actionSearch()
+    {
+        $searchModel=new ArticleSearch();
+        $provider=$searchModel->search(Yii::$app->request->get());
+        //print_r($searchModel->attributes);
+        $categories=Category::getItems();
+        return $this->render('index',['dataProvider'=>$provider,'searchModel'=>$searchModel,'categories'=>$categories]);
     }
 
     /**
@@ -60,21 +74,33 @@ class AdminController extends Controller
     }
 
     /**
-     * Creates a new Article model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * 创建文章
+     *
      * @return mixed
      */
     public function actionCreate()
     {
         $model = new Article();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $model->loadDefaultValues();
+        $articleData=new ArticleData();
+        $articleData->loadDefaultValues();
+        $request=Yii::$app->request;
+        if ($request->isPost) {
+            $post=$request->post();
+            $model->load($post);
+            $articleData->load($post);
+            $model->content=$articleData->content;
+            if($model->validate() && $articleData->validate() && $model->saveArticle($articleData)){
+                $this->success('add');
+                return $this->refresh();
+            }
         }
+        $categories=Category::getItems();
+        return $this->render('create', [
+            'model' => $model,
+            'categories'=>$categories,
+            'articleData'=>$articleData
+        ]);
     }
 
 
@@ -128,15 +154,27 @@ class AdminController extends Controller
      */
     public function actionUpdate($id)
     {
+        /** @var Article $model */
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        /** @var ArticleData $articleData */
+        $articleData=ArticleData::findOne($id);
+        $request=Yii::$app->request;
+        if ($request->isPost) {
+            $post=$request->post();
+            $model->load($post);
+            $articleData->load($post);
+            $model->content=$articleData->content;
+            if($model->validate() && $articleData->validate() && $model->saveArticle($articleData)){
+                $this->success('update');
+                return $this->refresh();
+            }
         }
+        $categories=Category::getItems();
+        return $this->render('update', [
+            'model' => $model,
+            'categories'=>$categories,
+            'articleData'=>$articleData
+        ]);
     }
 
     /**

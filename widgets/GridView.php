@@ -146,8 +146,27 @@ class GridView extends \yii\grid\GridView
 
         $footers=$this->footers;
 
+        if(!isset($footers['delete'])|| is_string($footers['delete'])){
+            $action=isset($footers['delete'])?$footers['delete']:Url::toRoute('multi-delete');
+            $html=Html::submitButton('删除',['id'=>$this->formOptions['id'].'-delete',
+                'data-action'=>$action,'class'=>'btn btn-primary delete multi-item']);
+            array_unshift($footers,$html);
+        }else if($footers['delete']===false){
+            unset($footers['delete']);
+        }
+
+        if(!isset($footers['update']) || is_string($footers['update'])){
+            $action=isset($footers['update'])?$footers['update']:Url::toRoute('multi-update');
+            $html=Html::submitButton('更新',['id'=>$this->formOptions['id'].'-update',
+                'data-action'=>$action,'class'=>'btn btn-primary multi-item']);
+            array_unshift($footers,$html);
+        }else if($footers['update']===false){
+            unset($footers['update']);
+        }
+
         foreach($footers as $key=>$item){
-            if(is_array($item)){
+            if(is_array($item))
+            {
                 $options=isset($item['options'])?$item['options']:[];
                 $content=isset($item['content'])?$item['content']:'';
                 if(isset($item['tag'])){
@@ -166,18 +185,7 @@ class GridView extends \yii\grid\GridView
                 }
             }
         }
-        if(!isset($footers['delete'])|| is_string($footers['delete'])){
-            $action=isset($footers['delete'])?$footers['delete']:Url::toRoute('multi-delete');
-            $html=Html::submitButton('删除',['id'=>$this->formOptions['id'].'-delete',
-                'data-action'=>$action,'class'=>'btn btn-primary delete multi-item']);
-            array_unshift($footers,$html);
-        }
-        if(!isset($footers['update']) || is_string($footers['update'])){
-            $action=isset($footers['update'])?$footers['update']:Url::toRoute('multi-update');
-            $html=Html::submitButton('更新',['id'=>$this->formOptions['id'].'-update',
-                'data-action'=>$action,'class'=>'btn btn-primary multi-item']);
-            array_unshift($footers,$html);
-        }
+
         $this->footers=$footers;
     }
 }

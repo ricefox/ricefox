@@ -36,6 +36,13 @@ use Yii;
 
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
+    public function behaviors()
+    {
+        return [
+
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -98,10 +105,5 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     }
 <?php endif; ?>
 
-    public function behaviors()
-    {
-        return [
 
-        ];
-    }
 }

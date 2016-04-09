@@ -3,6 +3,7 @@
 namespace ricefox\article\models;
 
 use Yii;
+use ricefox\block\models\Category;
 
 /**
  * This is the model class for table "article".
@@ -29,6 +30,11 @@ use Yii;
 
 class Article extends \ricefox\base\ActiveRecord
 {
+    public $isDesc=1;
+    public $descLength=200;
+    public $isThumbnail=1;
+    public $thumbnailOrder=1;
+    public $content;//用于提取desc
     /**
      * @inheritdoc
      */
@@ -44,13 +50,19 @@ class Article extends \ricefox\base\ActiveRecord
     {
         return [
             [['category_id', 'title'], 'required'],
-            [['category_id', 'type_id', 'sort', 'status', 'user_id', 'created_at', 'updated_at', 'has_code', 'replies', 'views'], 'integer'],
+            [['category_id', 'type_id', 'sort', 'status', 'user_id', 'created_at', 'updated_at', 'has_code', 'replies', 'views','isDesc','descLength','isThumbnail','thumbnailOrder'], 'integer'],
             [['title'], 'string', 'max' => 200],
             [['thumbnail', 'url'], 'string', 'max' => 100],
             [['keywords'], 'string', 'max' => 80],
             [['description'], 'string', 'max' => 1000],
             [['username', 'source'], 'string', 'max' => 14],
+
         ];
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(),['id'=>'category_id']);
     }
 
     /**
@@ -77,9 +89,26 @@ class Article extends \ricefox\base\ActiveRecord
             'replies' => Yii::t('rf_article', 'Replies'),
             'source' => Yii::t('rf_article', 'Source'),
             'views' => Yii::t('rf_article', 'Views'),
+            'descLength'=>'',
+            'thumbnailOrder'=>''
         ];
     }
-
+    public function beforeSave($insert)
+    {
+        $this->updated_at=time();
+        if($insert){
+            $this->created_at=strtotime($this->created_at);
+            if(!$this->created_at){
+                $this->created_at=time();
+            }
+        }
+        if(!trim($this->description) && $this->isDesc){
+            $content=strip_tags($this->content);
+            $length=$this->descLength;
+            $this->description=mb_substr($content,0,$length,\Yii::$app->charset);
+        }
+        return parent::beforeSave($insert);
+    }
     public static function deleteById($id)
     {
         $transaction=Article::getDb()->beginTransaction();
@@ -105,6 +134,28 @@ class Article extends \ricefox\base\ActiveRecord
             $this->deleteById($id);
         }
         return true;
+    }
+    /**
+     * 添加文章。
+     * @param $data ArticleData
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function saveArticle(&$data)
+    {
+        $transaction=$this->getDb()->beginTransaction();
+        if($this->save()!==false){
+            if(!$data->id)$data->id=$this->id;
+            if($data->save()!==false){
+                $transaction->commit();
+                return true;
+            }else{
+                $transaction->rollBack();
+            }
+        }else{
+            $transaction->rollBack();
+        }
+        return false;
     }
 
     public function behaviors()

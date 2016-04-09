@@ -16,9 +16,9 @@ use yii\helpers\Html;
 use <?= $generator->indexWidgetType === 'grid' ? "ricefox\\widgets\\GridView" : "yii\\widgets\\ListView" ?>;
 use yii\helpers\Url;
 
-/* @var $this yii\web\View */
+/** @var $this yii\web\View */
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/** @var $dataProvider yii\data\ActiveDataProvider */
 
 // 标签
 $this->params['tabs']=[
@@ -35,10 +35,20 @@ $this->params['breadcrumbs']=[
 
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
-
+<?php
+$actions=$generator->getActions();
+$footers=[];
+if(!in_array('multi-update',$actions)){
+    $footers['update']=false;
+}
+if(!in_array('multi-delete',$actions)){
+    $footers['delete']=false;
+}
+?>
 <?php if ($generator->indexWidgetType === 'grid'): ?>
     <?= "<?= " ?>GridView::widget([
         'dataProvider' => $dataProvider,
+        'footers'=><?php var_export($footers) ?>,
         <?= "'columns' => [\n"; ?>
             ['class' => 'yii\grid\CheckboxColumn'],
 

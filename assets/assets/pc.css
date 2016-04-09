@@ -1,0 +1,271 @@
+.body{
+    margin-top: 2px;
+}
+/** menus 菜单 */
+.siteName{
+    font-size: 16px;
+    font-weight: normal;
+}
+.menus{
+    font-size: 16px;
+    padding: 10px 0;
+    font-family: "Microsoft YaHei","微软雅黑",SimSun,"宋体";
+}
+.menus-item{
+    margin-bottom: 5px;
+}
+.menus a,.sub-menus a,.related-link a{
+    text-decoration: none;
+}
+.menus-item-link{
+    padding: 6px 8px;
+    background-color: #38f;
+    border-radius:3px ;
+}
+.menus-item-link:link,.menus-item-link:hover,.menus-item-link:visited,.menus-item-link:active{
+    color: #ffffff;
+}
+.menus-item-link:hover{
+    background-color: #317ef3;
+}
+.menus-item-link.active{
+    background-color: #317ef3;
+}
+/* sub menus 子菜单 */
+.sub-menus{
+    font-family: "Microsoft YaHei","微软雅黑",SimSun,"宋体";
+    margin-top: 10px;
+    line-height: 1em;
+    font-size: 15px;
+    border-bottom: solid 1px #f0f0f0;
+    padding-bottom: 10px;
+}
+.sub-menus-item{
+    margin-right: 10px;
+    padding: 5px 0;
+}
+/** 相关链接 */
+.related-link{
+
+}
+.related-link-item{
+    margin-right: 10px;
+    margin-bottom: 10px;
+    line-height: 1em;
+}
+
+/** 面包屑导航 */
+.breadcrumb{
+    padding:6px 8px;
+    background-color: #f5f5f5;
+    font-family: "Microsoft YaHei","微软雅黑",SimSun,"宋体";
+    font-size: 15px;
+}
+.breadcrumb a:link,.breadcrumb a:visited{
+    color: #317ef3;
+}
+/** 主内容  */
+.main{
+    float: left;
+    width: 660px;
+    margin-right: 10px;
+    /*border: solid 1px #f5f5f5;*/
+}
+.main-content{
+    /*padding: 0 8px;*/
+}
+/* 侧边栏 */
+.sidebar{
+    overflow: hidden;
+    _zoom: 1;
+    _float: left;
+    font-size: 14px;
+}
+
+.sidebar .boxTitle{
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.sidebar img{
+    vertical-align: middle;
+    width: 100%;
+    border: none;
+}
+
+.sidebar .halfImageItem{
+    width: 143px;
+    margin-bottom: 10px;
+}
+
+.sidebar .halfImageItem img{
+    height: 80px;
+}
+.sidebar .halfImageItem span{
+    margin-top: 2px;
+    line-height: 18px;
+}
+
+.sidebar .list{
+    margin-top: 5px;
+}
+.sidebar .listItem{
+    padding: 10px 0;
+    line-height: 18px;
+    border-bottom:dashed 1px #f0f0f0;
+}
+.sidebar .lastListItem{
+    border-bottom:none;
+}
+
+
+
+/* 信息列表 */
+.info{
+    padding-bottom: 10px;
+}
+
+.infoItem{
+    padding: 10px 0;
+    border-bottom: dashed 1px #f0f0f0;
+}
+.infoItemLast{
+    border-bottom:none;
+}
+.infoItem .topIcon{
+    color:#ff5500 ;
+}
+.infoItemTitle{
+    line-height: 24px;
+}
+.infoItemSummary{
+    margin-top: 3px;
+}
+
+/*文章内容页面*/
+
+.articleTitle{
+    font-size: 16px;
+    padding: 10px 0;
+    line-height: 24px;
+    font-family: "Microsoft YaHei","微软雅黑",SimSun,"宋体";
+}
+.articleMeta{
+    padding-bottom: 10px;
+    border-bottom: solid 1px #f5f5f5;
+    margin-bottom: 10px;
+    color: #666666;
+}
+.articleSummary{
+    margin-bottom: 10px;
+    padding: 8px;
+    border: dashed 1px #ff7800;
+    line-height: 24px;
+}
+.articleContent p{
+    line-height: 30px;
+    margin-bottom: 20px;
+}
+.articleContent img{
+    max-width: 680px;
+    text-align: center;
+}
+.prevNext{
+    font-size: 14px;
+    padding: 15px 0;
+    border-top: 1px solid #f5f5f5;
+}
+.prev{
+    margin-top: 12px;
+}
+
+/* 分页 */
+
+.pagination-center{
+    text-align: center;
+}
+ul.pagination{
+    margin: 15px 0;
+}
+.pagination li,.pagination a{
+    display: inline-block;
+    *display:inline;
+    *zoom:1;
+    vertical-align: middle;
+}
+
+.pagination a{
+    text-decoration: none;
+    background-color:  #ffffff;
+    color: #38f;
+    margin-right: 8px;
+    padding: 8px 10px;
+    border: solid 1px #f5f5f5;
+}
+.pagination li.selected a{
+    background-color: #38f;
+    cursor: default;
+    color: #ffffff;
+    border-color:#38f ;
+}
+.pagination a:hover{
+    background-color: #317ef3;
+    color: #ffffff;
+    border-color:#317ef3 ;
+}
+.footer{
+
+}
+.footer-line{
+    border-top: dashed 1px #f0f0f0;
+}
+.footer-line-15{
+    padding-top: 15px;
+    margin-top: 15px;
+}
+.footer a{
+    text-decoration: none;
+}
+/* bottom 底部图片 */
+.bottomImage{
+
+}
+.bottomImageItem{
+    width: 184px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+.bottomImageItem.gutter{
+    margin-left: 6px;
+}
+.bottomImageItem img{
+    width: 184px;
+    height: 110px;
+}
+.bottomImageItem span{
+    margin-top: 3px;
+}
+/* 底部文本 */
+.footer-text-item{
+    width: 235px;
+    padding:8px 0;
+}
+/* footer links */
+.footer-link{
+
+}
+.footer-link-item{
+    margin-right: 10px;
+    padding:8px 0;
+}
+
+
+
+/* 底部版权信息等 */
+.footer-bar{
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.footer-bar-item{
+    margin-right: 15px;
+    padding: 10px 0;
+}

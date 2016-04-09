@@ -50,6 +50,24 @@ class ActiveField extends \yii\widgets\ActiveField
         return $html;
     }
 
+    public function begin()
+    {
+        if(!$this->form){
+            return '';
+        }
+        return parent::begin();
+    }
+
+
+    public function radioLIst($items,$options=[])
+    {
+        if($this->isInline){
+            Html::addCssClass($options,'col radio-list');
+            Html::addCssClass($this->options,'radio-list-group');
+        }
+        return parent::radioList($items,$options);
+    }
+
     function dropDownList($items,$options=[])
     {
         if(!isset($options['encode']))$options['encode']=false;

@@ -1,19 +1,13 @@
 <?php
 
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests/codeception');
-
 $params = require(__DIR__ . '/params.php');
-$db = require(__DIR__ . '/db.php');
-
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'app\commands',
+    'controllerNamespace' => 'ricefox\console',
     'components' => [
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
         'log' => [
             'targets' => [
                 [
@@ -22,23 +16,21 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
-        'authManager'=>[
-            'class'=>'yii\rbac\DbManager',
-            //'itemTable'=>'{{%user_auth_item}}',
-            //'itemChildTable'=>'{{%user_auth_item_child}}',
-            //'assignmentTable'=>'{{%user_auth_assignment}}',
-            //'ruleTable'=>'{{%user_auth_rule}}'
-        ],
+        'user'=>[
+            'class'=>'yii\web\User',
+            'enableAutoLogin'=>false
+        ]
     ],
     'params' => $params,
-    /*
+
     'controllerMap' => [
         'fixture' => [ // Fixture generation command line.
             'class' => 'yii\faker\FixtureController',
         ],
+        'city'=>[
+            'class'=>'ricefox\city\CityController'
+        ]
     ],
-    */
 ];
 
 if (YII_ENV_DEV) {

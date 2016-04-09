@@ -37,7 +37,7 @@ class User extends \ricefox\base\ActiveRecord implements IdentityInterface
     public function beforeValidate()
     {
 
-        return true;
+        return parent::beforeValidate();
     }
 
     /**

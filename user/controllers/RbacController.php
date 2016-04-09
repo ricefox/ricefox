@@ -1,7 +1,7 @@
 <?php
 
 namespace ricefox\user\controllers;
-use ricefox\behaviors\DataFetch;
+
 use ricefox\user\models\AuthItemForm;
 use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
@@ -40,9 +40,7 @@ class RbacController extends \ricefox\base\BackendController
                     'remove-items' => ['post'],
                 ],
             ],
-            [
-                'class'=>DataFetch::className()
-            ]
+
         ];
     }
 

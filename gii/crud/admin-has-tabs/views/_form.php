@@ -19,9 +19,9 @@ echo "<?php\n";
 use yii\helpers\Html;
 use ricefox\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
-/* @var $form common\widgets\ActiveForm */
+/** @var $this yii\web\View */
+/** @var $model <?= ltrim($generator->modelClass, '\\') ?> */
+/** @var $form ricefox\widgets\ActiveForm */
 ?>
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">

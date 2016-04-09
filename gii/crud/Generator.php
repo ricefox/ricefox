@@ -33,6 +33,7 @@ use yii\web\Controller;
 class Generator extends \yii\gii\generators\crud\Generator
 {
     public $breadcrumb;
+    public $actions='create update delete view';
     /**
      * @var \yii\base\Model $model
      */
@@ -59,7 +60,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         $parent=parent::rules();
         $rules=[
-            ['breadcrumb','string']
+            [['breadcrumb','actions'],'string']
         ];
         return array_merge($parent,$rules);
     }
@@ -84,4 +85,13 @@ class Generator extends \yii\gii\generators\crud\Generator
             return false;
         }
     }
+
+    public function getActions()
+    {
+        if($this->actions){
+            return array_filter(explode(' ',$this->actions));
+        }
+        return [];
+    }
+
 }

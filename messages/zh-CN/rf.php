@@ -26,5 +26,12 @@ return [
     'Update'=>'更新',
     'View'=>'查看',
     'Name'=>'名称',
-    'Your submit has been saved'=>'你的提交已保存'
+    'Summary'=>'简介',
+    'Key Name'=>'键名',
+    'Type'=>'类型',
+    'Your submit has been saved'=>'你的提交已保存',
+    'Module'=>'模块',
+    'Category'=>'栏目',
+    'Protocol'=>'协议',
+    'Domain'=>'域名',
 ];

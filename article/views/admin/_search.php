@@ -1,59 +1,46 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: wen
+ * Date: 2016/2/29
+ * Time: 10:24
+ */
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use ricefox\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model ricefox\article\models\ArticleSearch */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form ricefox\widgets\ActiveForm */
+/* @var $field ricefox\widgets\Field */
+/* @var $categories Array */
+
+$field=new \ricefox\widgets\Field();
+$model->createFrom=$model->createFromString;
+$model->createTo=$model->createToString;
 ?>
 
-<div class="article-search">
-
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+<div style="margin-top: 10px;">
+    <?php
+    $action=isset($action) ? $action:['search'];
+    $form = ActiveForm::begin([
+        'action' => $action,
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'category_id') ?>
-
-    <?= $form->field($model, 'type_id') ?>
-
-    <?= $form->field($model, 'title') ?>
-
-    <?= $form->field($model, 'thumbnail') ?>
-
-    <?php // echo $form->field($model, 'keywords') ?>
-
-    <?php // echo $form->field($model, 'description') ?>
-
-    <?php // echo $form->field($model, 'url') ?>
-
-    <?php // echo $form->field($model, 'sort') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'user_id') ?>
-
-    <?php // echo $form->field($model, 'username') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'updated_at') ?>
-
-    <?php // echo $form->field($model, 'has_code') ?>
-
-    <?php // echo $form->field($model, 'replies') ?>
-
-    <?php // echo $form->field($model, 'source') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('rf_article', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('rf_article', 'Reset'), ['class' => 'btn btn-default']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+    <?=$form->fieldInline($model,'category_id')->dropDownList($categories,['prompt'=>'请选择栏目'])?>
+    <?= $form->fieldInline($model, 'title')->textInput(['placeholder'=>'请输入标题关键词'])?>
+    <?= $field->inline()->staticText('文章发布时间:') ?>
+    <?= $form->fieldInline($model, 'createFrom')->textInput()?>
+    <?= $form->fieldInline($model, 'createTo')->textInput() ?>
+    <!--<hr class="hr5">-->
+    <br/>
+    <?= $field->inline()->staticText('文章ID:') ?>
+    <?= $form->fieldInline($model, 'idFrom')->textInput()?>
+    <?= $form->fieldInline($model, 'idTo')->textInput()?>
+    <?= Html::submitButton('搜索', ['class' => 'btn btn-primary']) ?>
+    <?php ActiveForm::end();?>
 
 </div>
+
+

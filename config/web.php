@@ -2,32 +2,26 @@
 
 $config = [
     'id' => 'basic',
-    'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'language'=>'zh-CN',
-    'sourceLanguage'=>'en-US',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'c-GrmlTWJMHsGUSXWX3VAENHEp3w2AH0',
         ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
+        'devicedetect' => [
+            'class' => 'alexandernst\devicedetect\DeviceDetect'
         ],
         'user' => [
             'identityClass' => 'ricefox\user\models\User',
             'enableAutoLogin' => true,
         ],
+        'view'=>[
+            'class'=>'ricefox\base\View'
+        ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'site/error/error',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
-        ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -37,43 +31,25 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
-
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-            ],
-        ],
-        'i18n'=>[
-            'translations' => [
-                'rf*' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@ricefox/messages',
-                    //'sourceLanguage' => 'en-US',
-                    //'fileMap' => [
-                    //    'app' => 'app.php',
-                    //    'app/error' => 'error.php',
-                    //],
+                [
+                    'pattern'=>'view/<id:\d+><sep:_><page:\d+>.html',
+                    'route'=>'article/show/content',
+                    'defaults'=>['sep'=>'','page'=>1]
                 ],
+                [
+                    'class'=>'ricefox\components\UrlRule'
+                ]
             ],
         ],
-        'authManager'=>[
-            'class'=>'yii\rbac\DbManager',
-            'itemTable'=>'{{%user_auth_item}}',
-            'itemChildTable'=>'{{%user_auth_item_child}}',
-            'assignmentTable'=>'{{%user_auth_assignment}}',
-            'ruleTable'=>'{{%user_auth_rule}}'
-        ],
+
+
     ],
-    'modules'=>[
-        'user'=>[
-            'class'=>'ricefox\user\UserModule'
-        ],
-        'article' => [
-            'class' => 'ricefox\article\ArticleModule',
-        ],
-    ],
+    'defaultRoute'=>'site/site/index',
+
     'params' => include(__DIR__.'/params.php'),
 ];
 if (!YII_ENV_TEST) {
@@ -110,4 +86,5 @@ if (!YII_ENV_TEST) {
         ],
     ];
 }
+
 return $config;
