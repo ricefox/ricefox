@@ -18,11 +18,12 @@ $this->params['tabs']=[
 // 面包屑导航
 $this->params['breadcrumbs']=[
     [
-        'label'=>Yii::t('rf_job','Article Image'),
+        'label'=>Yii::t('rf_article','Article Image'),
         'url'=>Url::toRoute(['index'])
     ]
 ];
 ?>
+<?php echo $this->render('_search',['model'=>$searchModel,'keyNames'=>$keyNames,'positions'=>$positions,'categories'=>$categories]) ?>
 <div class="article-image-index">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,42 +32,49 @@ $this->params['breadcrumbs']=[
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn'],
 
-
             [
                 "attribute"=>"id",
                 
             ],
             [
-                "attribute"=>"category_id",
-                'value'=>function($model)use($categories){
-                    return $categories[$model['category_id']];
-                }
-                
-            ],
-            [
-                "attribute"=>"url",
-                'format'=>'url'
-            ],
-            [
-                "attribute"=>"image_url",
-                'format'=>'url'
+                "attribute"=>"sort",
+                "field"=>"input",
+                "width"=>60
             ],
             [
                 "attribute"=>"title",
-                
+                "field"=>'input',
+                'width'=>300
             ],
             [
-                "attribute"=>"key_name",
-                'value'=>function($model)use($keyNames){
-                    return $keyNames[$model['key_name']];
-                }
+                "attribute"=>"color",
+                "field"=>'input',
+                'width'=>60
+            ],
+
+            [
+                "attribute"=>"url",
+                "field"=>'input',
+                "format"=>"url",
+                'width'=>250
             ],
             [
-                "attribute"=>"position",
-                'value'=>function($model)use($positions){
-                    return $positions[$model['position']];
+                "attribute"=>"image_url",
+                'format'=>'url',
+                "field"=>'input',
+                'width'=>250
+            ],
+
+            [
+                "attribute"=>"expireAuto",
+                'value'=>function($model){
+                    if(!$model['expireAuto']){
+                        return '';
+                    }
+                    return $model['expireAuto'];
                 }
             ],
+
             ['class' => 'ricefox\widgets\ActionColumn'],
         ],
     ]); ?>

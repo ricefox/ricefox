@@ -8,4 +8,4 @@
 
 error_reporting(E_ALL);
 $cat=[];
-print_r($_SERVER);
+print_r(realpath($_SERVER['DOCUMENT_ROOT'].'/../..').'/ricefox-statics');

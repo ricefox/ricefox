@@ -5,13 +5,13 @@
  * Date: 2016/3/13
  * Time: 11:49
  */
-
-define('URL_PREFIX','http://static.yiihigh.me');
+/** @var $setting Array */
+define('URL_PREFIX',$setting['static.urlPrefix']);
 
 $array[]=[
     // 保存资源文件的根目录。
-    'rootPath'=>realpath($_SERVER['DOCUMENT_ROOT'].'/../../../yiistatic'),
-    'urlPrefix'=>'http://static.yiihigh.me'
+    'rootPath'=>realpath($_SERVER['DOCUMENT_ROOT'].'/../..').'/'.$setting['static.dir'],
+    //'urlPrefix'=>'http://static.yiihigh.me'
 ];
 
 /**

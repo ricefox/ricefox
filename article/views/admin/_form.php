@@ -49,7 +49,7 @@ $field=new Field();
     <?php echo $form->fieldInline($model,'isDesc')->checkbox(['label'=>'是否自动截取文章']) ?>
     <?php echo $form->fieldInline($model,'descLength')->width(100)->textInput() ?>
     <?php echo $field->inline()->staticText('个字符作为文章简介') ?>
-    <?php echo $form->fieldInline($model,'isThumbnail')->checkbox(['label'=>'是否自动截取第']) ?>
+    <?php echo $form->fieldInline($model,'isThumbnail')->checkbox(['label'=>'是否自动截取第','id'=>'isThumbnail']) ?>
     <?php echo $form->fieldInline($model,'thumbnailOrder')->width(80)->textInput() ?>
     <?php echo $field->inline()->staticText('张图片作为缩略') ?>
     <br/>

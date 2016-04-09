@@ -4,7 +4,7 @@ namespace ricefox\article\models;
 
 use Yii;
 use ricefox\block\models\Category;
-
+use ricefox\article\helpers\Url;
 /**
  * This is the model class for table "article".
  *
@@ -107,6 +107,11 @@ class Article extends \ricefox\base\ActiveRecord
             $length=$this->descLength;
             $this->description=mb_substr($content,0,$length,\Yii::$app->charset);
         }
+        if($this->keywords){
+            if(strpos($this->keywords,',')===false &&  strpos($this->keywords,' ')!==false){
+                $this->keywords=preg_replace('/[\s]+/',',',$this->keywords);
+            }
+        }
         return parent::beforeSave($insert);
     }
     public static function deleteById($id)
@@ -146,6 +151,10 @@ class Article extends \ricefox\base\ActiveRecord
         $transaction=$this->getDb()->beginTransaction();
         if($this->save()!==false){
             if(!$data->id)$data->id=$this->id;
+            if(!$this->url){
+                $this->url=Url::showUrl($this->id);
+                $this->save(false);
+            }
             if($data->save()!==false){
                 $transaction->commit();
                 return true;

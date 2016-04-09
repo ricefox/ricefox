@@ -7,7 +7,7 @@
  */
 
 include(__DIR__.'/Watermark.php');
-
+use \Overtrue\Pinyin\Pinyin;
 class Base
 {
     /**
@@ -111,14 +111,15 @@ class Base
         //过滤文件名的非法自负,并替换文件名
         $oriName = substr($this->originName, 0, strrpos($this->originName, '.'));
         $oriName = preg_replace("/[\|\?\"\<\>\/\*\\\\]+/", '', $oriName);
+        Pinyin::set('accent',false);
+        Pinyin::set('delimiter','');
+        $oriName=\Overtrue\Pinyin\Pinyin::trans($oriName);
         $format = str_replace("{filename}", $oriName, $format);
-
         //替换随机字符串
         $randNum = rand(1, 10000000000) . rand(1, 10000000000);
         if (preg_match("/\{rand\:([\d]*)\}/i", $format, $matches)) {
             $format = preg_replace("/\{rand\:[\d]*\}/i", substr($randNum, 0, $matches[1]), $format);
         }
-
         $ext = $this->getExt();
         $this->path=$format . $ext;
         return $this->path;

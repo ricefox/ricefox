@@ -22,11 +22,11 @@ $this->params['tabs']=[
 // 面包屑导航
 $this->params['breadcrumbs']=[
     [
-        'label'=>Yii::t('rf_job','Article Image'),
+        'label'=>Yii::t('rf_article','Article Image'),
         'url'=>Url::toRoute(['index'])
     ],
     [
-        'label'=>Yii::t('rf_job','Create')
+        'label'=>Yii::t('rf_article','Create')
     ]
 ];
 ?>

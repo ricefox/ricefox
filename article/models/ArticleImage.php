@@ -33,6 +33,14 @@ class ArticleImage extends \ricefox\base\ActiveRecord
         ];
     }
 
+    public function afterFind()
+    {
+        if($this->expire){
+            $this->expireAuto=date('Y-m-d H:i:s',$this->expire);
+        }
+        parent::afterFind();
+    }
+
     /**
      * @inheritdoc
      */
@@ -64,12 +72,15 @@ class ArticleImage extends \ricefox\base\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
-            'url' => 'Url',
-            'image_url' => 'Image Url',
-            'title' => 'Title',
-            'key_name' => 'Key Name',
-            'position' => 'Position',
+            'category_id' => '文章栏目',
+            'url' => '文章URL',
+            'image_url' => '图片URL',
+            'title' => '标题',
+            'key_name' => '碎片标识',
+            'position' => '显示位置',
+            'category_cond'=>'栏目相关',
+            'expireAuto'=>'有效期',
+            'sort'=>'排序'
         ];
     }
 

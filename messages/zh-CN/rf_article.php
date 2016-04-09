@@ -13,7 +13,9 @@ $article=[
     'Pagination'=>'分页方式',
     'Pagination Length'=>'每页字符数',
     'Source'=>'来源',
-    'Username'=>'作者'
+    'Username'=>'作者',
+    'Article Image'=>'图片碎片',
+    'Article Text'=>'文本碎片'
 ];
 
 return array_merge(include('rf.php'),$article);

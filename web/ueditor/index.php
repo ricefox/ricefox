@@ -6,10 +6,23 @@
 
 //header('Access-Control-Allow-Origin: http://www.baidu.com'); //设置http://www.baidu.com允许跨域访问
 //header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With'); //设置允许的跨域header
+
 date_default_timezone_set("Asia/Chongqing");
 error_reporting(1);
 header("Content-Type: text/html; charset=utf-8");
 define('BASE_PATH',__DIR__);
+include(BASE_PATH.'/../../vendor/autoload.php');
+include(BASE_PATH.'/../../vendor/yiisoft/yii2/Yii.php');
+$config = yii\helpers\ArrayHelper::merge(
+    require(__DIR__ . '/../../config/common.php'),
+    require(__DIR__ . '/../../config/web.php')
+);
+(new yii\web\Application($config));
+/** @var \ricefox\setting\Setting $setting */
+$setting=Yii::$app->get('setting');
+$setting->loadSetting('ext');
+$setting=$setting['ext'];
+
 // 加载配置文件。
 $conf = include(BASE_PATH.'/config/config.php');
 
